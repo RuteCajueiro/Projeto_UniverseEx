@@ -1,0 +1,119 @@
+/* Container principal */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem; 
+  margin: 2.5rem 0; 
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Título principal */
+.title {
+  font-size: 1.525rem;
+  font-weight: bolder;
+  padding-bottom: 0.25rem;
+  width: 80%;
+  text-align: center;
+}
+
+/* Texto de "Filtrar" */
+.textfiltrar {
+  font-weight: bolder;
+  width: 80%;
+  color: #1605ab;
+  text-align: center;
+}
+
+/* Container dos filtros */
+.containerdois {
+  display: flex;
+  gap: 2.5rem; 
+  width: 80%;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Formulário de filtros */
+.filtros div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.20rem;
+  border: 2px solid white;
+  padding: 10px;
+
+
+}
+
+.filtros label {
+  font-weight: bold;
+}
+
+.filtros select,
+.filtros input {
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+/* Botão de buscar */
+.filtros button {
+  padding: 0.6rem 1.2rem;
+  background-color: #6308a3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.filtros button:hover {
+  background-color: #05016a;
+}
+
+/* Galeria de fotos */
+.galeria {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  width: 80%;
+  margin-top: 2rem;
+}
+
+/* Card de cada foto */
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  text-align: center;
+}
+
+/* Imagem dentro do card */
+.imagem {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Informações da foto */
+.info {
+  color: rgb(8, 0, 8);
+  padding: 1rem;
+  text-align: left;
+  font-size: 0.9rem;
+  color: white;
+ 
+}
+
+.info p {
+  margin: 0.25rem 0;
+}
+.textColor {
+  color: #05031d;
+}

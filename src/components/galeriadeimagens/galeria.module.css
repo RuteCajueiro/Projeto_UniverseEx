@@ -1,0 +1,32 @@
+.galeria {
+  padding: 2rem;
+  text-align: center;
+  background: linear-gradient(180deg, #0b0f2b, #000);
+  color: white;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.imagem {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.info {
+  padding: 1rem;
+  text-align: left;
+  font-size: 0.9rem;
+}
