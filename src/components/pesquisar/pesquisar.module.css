@@ -52,7 +52,7 @@
 }
 
 .card {
-  background: #fff;
+  background:rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
@@ -71,14 +71,13 @@
 .meta {
   padding: 10px;
   font-size: 13px;
-  color: var(--muted);
   display: flex;
   flex-direction: column;
   gap: 4px;
+  color: #fff;
 }
 
 .meta strong {
-  color: #111827;
   font-weight: 600;
 }
 

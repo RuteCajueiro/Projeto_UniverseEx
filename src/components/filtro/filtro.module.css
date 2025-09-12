@@ -102,12 +102,10 @@
   background-color: #05016a;
 }
 
-.galeria {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(18.75rem, 1fr)); 
-  gap: 1.5rem;
-  width: 80%;
-  margin-top: 2rem;
+.modalGaleria {
+ display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
 }
 
 .card {
