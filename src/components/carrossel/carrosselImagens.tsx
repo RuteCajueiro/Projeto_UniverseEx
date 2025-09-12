@@ -8,7 +8,7 @@ export default function CarrosselImagens() {
   const [imagens, setImagens] = useState<string[]>([]);
   const [slideAtual, setSlideAtual] = useState(0);
 
-  // 🔹 Buscar imagens do Mars Rover
+ 
   useEffect(() => {
     const fetchImagens = async () => {
       try {
@@ -17,7 +17,6 @@ export default function CarrosselImagens() {
         );
         const data = await res.json();
 
-        // Pegar apenas as primeiras 7 imagens e trocar http -> https
         const urls = data.photos
           .slice(0, 7)
           .map((photo: any) => photo.img_src.replace("http://", "https://"));

@@ -1,11 +1,11 @@
  .container{
-    background: linear-gradient(to right, #6308a3,#7368f1);
+    background: linear-gradient(to right, #6308a3,#070056);
     color: rgb(195, 23, 23);
     padding: 54px;
     text-align: center;
 }
  .textFooter{
-    color: rgb(10, 2, 17);
+    color: rgb(255, 255, 255);
     font-size: 20px;
     margin-top: 20px;
    }

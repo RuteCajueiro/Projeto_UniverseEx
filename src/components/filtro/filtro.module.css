@@ -1,72 +1,98 @@
-/* Container principal */
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1.25rem; 
-  margin: 2.5rem 0; 
+  gap: 1.25rem;
+  margin: 0.5rem 0;
   color: white;
   font-family: Arial, Helvetica, sans-serif;
+  background-image: url('/assets/espaçoimg.jpg');
 }
 
-/* Título principal */
 .title {
   font-size: 1.525rem;
   font-weight: bolder;
   padding-bottom: 0.25rem;
   width: 80%;
   text-align: center;
+  margin-top: 0.625rem;
 }
 
-/* Texto de "Filtrar" */
-.textfiltrar {
-  font-weight: bolder;
-  width: 80%;
-  color: #1605ab;
-  text-align: center;
-}
-
-/* Container dos filtros */
-.containerdois {
-  display: flex;
-  gap: 2.5rem; 
-  width: 80%;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-/* Formulário de filtros */
-.filtros div {
+.filtros {
   display: flex;
   flex-direction: column;
-  gap: 0.20rem;
-  border: 2px solid white;
-  padding: 10px;
+  gap: 1rem;
+  padding: 1.5rem;
+  width: 31.25rem;
+  border-radius: 0.9375rem; 
+  background-color: rgba(0, 0, 0, 0.2);
+}
 
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border: 0.5px solid #6308a3;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
 
+.inputGroup:hover,
+.inputGroup:focus-within {
+  border-color: #8a2be2;
+  box-shadow: 0 0 0.3125rem rgba(138, 43, 226, 0.5);
 }
 
 .filtros label {
   font-weight: bold;
+  color: #fff;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .filtros select,
 .filtros input {
   padding: 0.5rem;
-  border-radius: 5px;
   border: none;
   outline: none;
   font-size: 1rem;
+  background-color: transparent;
+  color: white;
+  transition: all 0.3s ease;
+  width: 100%;
 }
 
-/* Botão de buscar */
+.filtros select:focus,
+.filtros input:focus,
+.filtros select:active {
+  background-color: rgba(15, 14, 16, 0.9);
+  border-color: #8a2be2;
+  box-shadow: 0 0 0.3125rem rgba(138, 43, 226, 0.5);
+}
+
+.filtros select option {
+  background-color: rgba(15, 14, 16, 0.95);
+  color: white;
+}
+
+.filtros input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
+.filtros select:focus-within {
+  background-color: rgba(15, 14, 16, 0.9);
+}
+
 .filtros button {
   padding: 0.6rem 1.2rem;
   background-color: #6308a3;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 0.3125rem; 
   cursor: pointer;
   font-weight: bold;
   transition: 0.3s;
@@ -76,44 +102,45 @@
   background-color: #05016a;
 }
 
-/* Galeria de fotos */
 .galeria {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(18.75rem, 1fr)); 
   gap: 1.5rem;
   width: 80%;
   margin-top: 2rem;
 }
 
-/* Card de cada foto */
 .card {
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
+  border-radius: 0.625rem; 
   overflow: hidden;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  box-shadow: 0 0 0.625rem rgba(0,0,0,0.5);
   text-align: center;
 }
 
-/* Imagem dentro do card */
 .imagem {
   width: 100%;
   height: auto;
   display: block;
 }
 
-/* Informações da foto */
 .info {
   color: rgb(8, 0, 8);
   padding: 1rem;
   text-align: left;
   font-size: 0.9rem;
   color: white;
- 
 }
 
 .info p {
   margin: 0.25rem 0;
 }
+
 .textColor {
-  color: #05031d;
+  color: #f7f7fa;
+}
+@media (max-width: 493px) {
+    .filtros{
+       width: 22.25rem;
+          }
 }

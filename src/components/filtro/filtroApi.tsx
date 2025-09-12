@@ -1,6 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import styles from "./filtro.module.css";
+import Modal from "../modal/modal";
+import modalStyles from "../modal/modal.module.css";
 
 type FotoMars = {
   id: number;
@@ -11,25 +14,56 @@ type FotoMars = {
 };
 
 export default function FiltroApi() {
-  const rovers = ["Curiosity", "Opportunity", "Spirit"];
+  const router = useRouter();
+
+  const [rovers, setRovers] = useState<string[]>([]);
   const [cameras, setCameras] = useState<string[]>([]);
-  const [selectedRover, setSelectedRover] = useState<string>(rovers[0]);
+  const [selectedRover, setSelectedRover] = useState<string>("");
   const [selectedCamera, setSelectedCamera] = useState<string>("");
   const [selectedDate, setSelectedDate] = useState<string>("");
   const [fotos, setFotos] = useState<FotoMars[]>([]);
+  const [isOpen, setOpen] = useState(false);
 
-  // Atualiza as câmeras disponíveis quando mudar o rover
+  const handleFechar = () => {
+    setOpen(false);
+  
+  };
+
   useEffect(() => {
-    const roverCameras: { [key: string]: string[] } = {
-      Curiosity: ["FHAZ", "RHAZ", "MAST", "CHEMCAM", "MAHLI", "MARDI", "NAVCAM"],
-      Opportunity: ["FHAZ", "RHAZ", "NAVCAM", "PANCAM", "MINITES"],
-      Spirit: ["FHAZ", "RHAZ", "NAVCAM", "PANCAM", "MINITES"],
+    const carregarRovers = async () => {
+      const data = await buscarRovers();
+      if (data) {
+        const nomes = data.map((r: { name: string }) => r.name);
+        setRovers(nomes);
+        setSelectedRover(nomes[0]);
+      }
     };
-    setCameras(roverCameras[selectedRover]);
-    setSelectedCamera(""); // resetar câmera
+    carregarRovers();
+  }, []);
+
+  const buscarCamerasDoRover = async (roverName: string) => {
+    try {
+      const url = `https://api.nasa.gov/mars-photos/api/v1/rovers/${roverName.toLowerCase()}?api_key=mnLpM4nFqncWePB6KTGCZvnfh82afjdDXhUS6iwt`;
+      const res = await fetch(url);
+      const data = await res.json();
+      return data.rover.cameras.map((camera: { name: string }) => camera.name);
+    } catch (err) {
+      console.error("Erro ao buscar câmeras:", err);
+      return [];
+    }
+  };
+
+  useEffect(() => {
+    if (selectedRover) {
+      const carregarCameras = async () => {
+        const camerasDisponiveis = await buscarCamerasDoRover(selectedRover);
+        setCameras(camerasDisponiveis);
+        setSelectedCamera("");
+      };
+      carregarCameras();
+    }
   }, [selectedRover]);
 
-  // Buscar fotos com base nos filtros
   const buscarFotos = async () => {
     try {
       let url = `https://api.nasa.gov/mars-photos/api/v1/rovers/${selectedRover.toLowerCase()}/photos?api_key=mnLpM4nFqncWePB6KTGCZvnfh82afjdDXhUS6iwt`;
@@ -38,9 +72,20 @@ export default function FiltroApi() {
 
       const res = await fetch(url);
       const data = await res.json();
-      setFotos(data.photos.slice(0, 10)); // pega as 10 primeiras fotos
+      setFotos(data.photos.slice(0, 10));
     } catch (err) {
       console.error("Erro ao buscar fotos:", err);
+    }
+  };
+
+  const buscarRovers = async () => {
+    try {
+      let url = `https://api.nasa.gov/mars-photos/api/v1/rovers?api_key=mnLpM4nFqncWePB6KTGCZvnfh82afjdDXhUS6iwt`;
+      const res = await fetch(url);
+      const data = await res.json();
+      return data.rovers;
+    } catch (err) {
+      console.error("Erro ao buscar rovers:", err);
     }
   };
 
@@ -49,8 +94,7 @@ export default function FiltroApi() {
       <h2 className={styles.title}>Filtrar Imagens do Mars Rover</h2>
 
       <div className={styles.filtros}>
-        {/* Selecionar Rover */}
-        <div>
+        <div className={styles.inputGroup}>
           <label>Rover:</label>
           <select
             value={selectedRover}
@@ -64,8 +108,7 @@ export default function FiltroApi() {
           </select>
         </div>
 
-        {/* Selecionar Câmera */}
-        <div>
+        <div className={styles.inputGroup}>
           <label>Câmera:</label>
           <select
             value={selectedCamera}
@@ -80,8 +123,7 @@ export default function FiltroApi() {
           </select>
         </div>
 
-        {/* Selecionar Data */}
-        <div>
+        <div className={styles.inputGroup}>
           <label>Data (Terrestre):</label>
           <input
             type="date"
@@ -90,28 +132,56 @@ export default function FiltroApi() {
           />
         </div>
 
-        <button onClick={buscarFotos}>Buscar Fotos</button>
-      </div>
+       <button
+                onClick={async () => {
+                  
+                  if (!selectedRover && !selectedCamera && !selectedDate) {
+                    window.alert("Por favor, selecione ao menos um filtro antes de buscar!");
+                    return;
+                  }
 
-      <div className={styles.galeria}>
-        {fotos.length > 0 ? (
-          fotos.map((foto) => (
-            <div key={foto.id} className={styles.card}>
-              <img
-                src={foto.img_src.replace("http://", "https://")}
-                alt={`Foto do Rover ${foto.rover.name}`}
-                className={styles.imagem}
-              />
-              <div className={styles.info}>
-                <p  className={styles.textColor}><strong>Data:</strong> {foto.earth_date}</p>
-                <p className={styles.textColor}><strong>Rover:</strong> {foto.rover.name}</p>
-                <p className={styles.textColor}><strong>Câmera:</strong> {foto.camera.full_name}</p>
-              </div>
-            </div>
-          ))
-        ) : (
-          <p>Nenhuma foto encontrada.</p>
-        )}
+                  await buscarFotos();
+                  setOpen(true);
+                }}
+                className={styles.button}
+              >
+                  Buscar Fotos
+       </button>
+
+
+        <Modal
+          isOpen={isOpen}
+          setOpen={setOpen}
+          text="Fotos Selecionadas de Marte"
+          onClose={handleFechar}
+        >
+          <div className={modalStyles.modalGaleria}>
+            {fotos.length > 0 ? (
+              fotos.map((foto) => (
+                <div key={foto.id} className={modalStyles.modalCard}>
+                  <img
+                    src={foto.img_src.replace("http://", "https://")}
+                    alt={`Foto do Rover ${foto.rover.name}`}
+                    className={modalStyles.modalImagem}
+                  />
+                  <div className={modalStyles.modalInfo}>
+                    <p>
+                      <strong>Data:</strong> {foto.earth_date}
+                    </p>
+                    <p>
+                      <strong>Rover:</strong> {foto.rover.name}
+                    </p>
+                    <p>
+                      <strong>Câmera:</strong> {foto.camera.full_name}
+                    </p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p>Nenhum registro fotográfico disponível para os critérios selecionados.</p>
+            )}
+          </div>
+        </Modal>
       </div>
     </div>
   );

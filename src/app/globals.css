@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+/* globals.css */
+:root {
+  --bg: #ffffff;
+  --muted: #6b7280;
+  --primary: #0ea5a4;
+  --primary-contrast: #ffffff;
+  --border: #e6e6e6;
+  --card-shadow: 0 6px 18px rgba(14, 165, 164, 0.08);
+  --radius: 10px;
+  --gap: 12px;
+}
 
 body {
  background: linear-gradient(180deg, #0b0f2b, #000);

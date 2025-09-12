@@ -1,13 +1,17 @@
-import Image from "next/image";
+
+import CarrosselImagens from "@/components/carrossel/carrosselImagens";
+import FooterPage from "@/components/footer/footerPage";
+import GaleriaMars from "@/components/galeriadeimagens/galeria";
+import { Header } from "@/components/header/header";
+import FiltroApi from "@/components/filtro/filtroApi";
+import PesquisaApi from "@/components/pesquisar/pesquisar";
+
 
 export default function Home() {
   return (
-    <div >
-      <main >
-        <h1>Home</h1>
-     
-      </main>
-  
-    </div>
+    <main>
+      <FiltroApi />
+      <GaleriaMars />
+    </main>
   );
 }
